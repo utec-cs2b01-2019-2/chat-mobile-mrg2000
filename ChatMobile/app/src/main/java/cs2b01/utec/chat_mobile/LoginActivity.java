@@ -1,5 +1,6 @@
 package cs2b01.utec.chat_mobile;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,7 +59,14 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         //TODO Qué hacer cuando el server responda
                         showMessage("Authorized!");
-                        setContentView(R.layout.activity_contact);
+                        try {
+                            String username = response.getString("username");
+                            int user_id = response.getInt("user_id");
+                            goToContactActivity(user_id,username);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
                     }
                 },
@@ -73,5 +83,12 @@ public class LoginActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(request);
 
+    }
+
+    private void goToContactActivity(int user_id,String username) {
+        Intent intent = new Intent(this, ContactsActivity.class);
+        intent.putExtra("user_id",user_id);
+        intent.putExtra("username",username);
+        startActivity(intent);
     }
 }
