@@ -56,7 +56,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             holder.first_line.setText(name);
             holder.second_line.setText(username);
 
-            /*
+
             holder.container.setOnClickListener(new View.OnClickListener(){
 
                 @Override
@@ -69,7 +69,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                 }
             });
 
-             */
+
 
         } catch (JSONException e) {
             e.printStackTrace();
