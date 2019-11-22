@@ -112,6 +112,7 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                getMessages();
             }
         });
         queue.add(jsonObjectRequest);
