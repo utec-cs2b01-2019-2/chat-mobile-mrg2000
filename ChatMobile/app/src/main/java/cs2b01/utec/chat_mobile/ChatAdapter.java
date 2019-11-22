@@ -19,9 +19,9 @@ import org.json.JSONObject;
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     public JSONArray elements;
     private Context context;
-    public String userFromId;
+    public int userFromId;
 
-    public ChatAdapter(JSONArray elements, Context context, String userFromId){
+    public ChatAdapter(JSONArray elements, Context context, int userFromId){
         this.elements = elements;
         this.context = context;
         this.userFromId = userFromId;
@@ -46,6 +46,15 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         return new ViewHolder(view);
     }
 
+
+    public void goToMessageActivity(int user_id, String username){
+        Intent goToMessage = new Intent(context,MessageActivity.class);
+        goToMessage.putExtra("user_from_id",userFromId);
+        goToMessage.putExtra("user_to_id",user_id);
+        goToMessage.putExtra("username", username);
+        context.startActivity(goToMessage);
+    }
+
     @Override
     public void onBindViewHolder(@NonNull ChatAdapter.ViewHolder holder, int position) {
         try {
@@ -53,6 +62,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             String name = element.getString("name")+" "+element.getString("fullname");
             final String username = element.getString("username");
             final String id = element.getString("id");
+            final int user_id = element.getInt("id");
             holder.first_line.setText(name);
             holder.second_line.setText(username);
 
@@ -61,11 +71,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
                 @Override
                 public void onClick(View v) {
-                    Intent goToMessage = new Intent(context,MessageActivity.class);
-                    goToMessage.putExtra("user_from_id",userFromId);
-                    goToMessage.putExtra("user_to_id",id);
-                    goToMessage.putExtra("username", username);
-                    context.startActivity(goToMessage);
+                    goToMessageActivity(user_id,username);
                 }
             });
 

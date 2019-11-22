@@ -50,7 +50,7 @@ public class ContactsActivity extends AppCompatActivity {
         String url = "http://10.0.2.2:8000/users";
         RequestQueue queue = Volley.newRequestQueue(this);
         JSONArray parameters = new JSONArray();
-        final String userId = getIntent().getExtras().get("user_id").toString();
+        final int userId = getIntent().getExtras().getInt("user_id");
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
                 Request.Method.GET,
                 url,

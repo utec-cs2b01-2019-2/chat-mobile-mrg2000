@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/element_view_first_line"
         android:text="linea para el usuario"
-        android:textSize="16sp"
+        android:textSize="17sp"
         android:textColor="#000"
         />
     <TextView
